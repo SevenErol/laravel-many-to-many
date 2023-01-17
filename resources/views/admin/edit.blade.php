@@ -76,6 +76,23 @@
         </div>
         @enderror
 
+        <div class="mb-3">
+            <label for="technologies" class="form-label">Technologies</label>
+            <select multiple class="form-select form-select-sm" name="technologies[]" id="technologies">
+                <option value="" disabled>Select a technology</option>
+                @forelse ($technologies as $technology)
+
+                @if ($errors->any())
+                <option value="{{$technology->id}}" {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>{{$technology->name}}</option>
+                @else
+                <option value="{{$technology->id}}" {{$project->technologies->contains($technology->id) ? 'selected' : ''}}>{{$technology->name}}</option>
+                @endif
+                @empty
+                <option value="" disabled>Sorry no technologies in the system</option>
+                @endforelse
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

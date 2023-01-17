@@ -71,7 +71,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('admin.show', compact('project'));
+        $technologies = Technology::all();
+        return view('admin.show', compact('project', 'technologies'));
     }
 
     /**
@@ -85,7 +86,9 @@ class ProjectController extends Controller
 
         $types = Type::all();
 
-        return view('admin.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.edit', compact('project', 'types', 'technologies'));
     }
 
     /**

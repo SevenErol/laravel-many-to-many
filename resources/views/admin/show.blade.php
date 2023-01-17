@@ -14,6 +14,7 @@
                 <th scope="col">Description</th>
                 <th scope="col">Date</th>
                 <th scope="col">Type</th>
+                <th scope="col">Technologies</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -32,6 +33,19 @@
                 <td>{{ $project['description'] }}</td>
                 <td>{{ $project['date']}}</td>
                 <td class="type">{{ $project->type ? $project->type->name : 'Uncategorized'}}</td>
+                <td>
+                    @if(count($project->technologies) > 0 )
+
+                    <ul>
+                        @foreach ($project->technologies as $technology)
+                        <li>#{{$technology->name}} </li>
+                        @endforeach
+
+                        @else
+                        <li>No technologies associated to the current project</li>
+                        @endif
+                    </ul>
+                </td>
                 <td>
                     <div class="d-flex flex-column">
                         <div>
