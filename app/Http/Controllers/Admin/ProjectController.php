@@ -58,7 +58,11 @@ class ProjectController extends Controller
 
         // dd($val_data['cover_image']);
 
-        Project::create($val_data);
+        $project = Project::create($val_data);
+
+        if ($request->has('technologies')) {
+            $project->technologies()->attach($val_data['technologies']);
+        }
 
         return to_route('admin.project.index')->with('message', "Project added successfully");
     }
@@ -114,6 +118,12 @@ class ProjectController extends Controller
         }
 
         $project->update($val_data);
+
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($val_data['technologies']);
+        } else {
+            $project->technologies()->sync([]);
+        }
 
         return to_route('admin.project.index')->with('message', "Project updated successfully");
     }
